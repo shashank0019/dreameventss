@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db.kjwfpbsmzlfcqgxoefhh.supabase.co:5432/postgres
+    username: postgres
+    password: Shashi@193124
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  mail:
+    host: localhost
+    port: 25
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+cloudinary:
+  cloud-name: m2znpk8u
+  api-key: "651733741258622"
+  api-secret: T0m8gBHkzyEiMNWbCsHDn2DL6mM
