@@ -40,3 +40,10 @@ VALUES
 (2, 'Gold Luxury Wedding', 'Premium package: Full stage drapery, premium fresh flower installations, 15 luxury centerpieces, and custom photo booth corner.', 3500.00, 'GOLD', 'ACTIVE', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (3, 'Themed Kids Balloon Party', 'Includes 1 large organic balloon arch, customized birthday signage, cake table decoration, and themed backdrop.', 800.00, 'BRONZE', 'ACTIVE', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
 ON CONFLICT (id) DO NOTHING;
+
+-- Synchronize sequences for IDENTITY columns
+SELECT setval('categories_id_seq', COALESCE((SELECT MAX(id) FROM categories), 1));
+SELECT setval('services_id_seq', COALESCE((SELECT MAX(id) FROM services), 1));
+SELECT setval('testimonials_id_seq', COALESCE((SELECT MAX(id) FROM testimonials), 1));
+SELECT setval('contact_info_id_seq', COALESCE((SELECT MAX(id) FROM contact_info), 1));
+SELECT setval('packages_id_seq', COALESCE((SELECT MAX(id) FROM packages), 1));

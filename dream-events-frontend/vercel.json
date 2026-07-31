@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://dream-events-api.onrender.com/api/:path*"
+      "destination": "https://dreameventss.onrender.com/api/:path*"
     },
     {
       "source": "/((?!api).*)" ,

@@ -32,7 +32,7 @@ public class ContactInfoService {
                 .build();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public ContactInfoResponse getContactInfo() {
         List<ContactInfo> infoList = contactInfoRepository.findAll();
         if (infoList.isEmpty()) {

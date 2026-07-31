@@ -34,9 +34,22 @@ public class JwtUtils {
                 return Keys.hmacShaKeyFor(keyBytes);
             }
         } catch (Exception e) {
-            log.warn("Failed to decode JWT secret as Base64, falling back to plaintext bytes");
+            log.warn("Failed to decode JWT secret as Base64, falling back to plaintext hashing");
         }
-        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        try {
+            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
+            byte[] hashedKey = digest.digest(jwtSecret.getBytes(StandardCharsets.UTF_8));
+            return Keys.hmacShaKeyFor(hashedKey);
+        } catch (Exception e) {
+            log.error("Failed to hash JWT secret with SHA-256, falling back to raw bytes or padded key: {}", e.getMessage());
+            byte[] rawBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
+            if (rawBytes.length >= 32) {
+                return Keys.hmacShaKeyFor(rawBytes);
+            }
+            byte[] padded = new byte[32];
+            System.arraycopy(rawBytes, 0, padded, 0, Math.min(rawBytes.length, 32));
+            return Keys.hmacShaKeyFor(padded);
+        }
     }
 
     public String generateJwtToken(Authentication authentication) {
