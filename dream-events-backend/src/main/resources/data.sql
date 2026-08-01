@@ -42,8 +42,8 @@ VALUES
 ON CONFLICT (id) DO NOTHING;
 
 -- Synchronize sequences for IDENTITY columns
-SELECT setval('categories_id_seq', COALESCE((SELECT MAX(id) FROM categories), 1));
-SELECT setval('services_id_seq', COALESCE((SELECT MAX(id) FROM services), 1));
-SELECT setval('testimonials_id_seq', COALESCE((SELECT MAX(id) FROM testimonials), 1));
-SELECT setval('contact_info_id_seq', COALESCE((SELECT MAX(id) FROM contact_info), 1));
-SELECT setval('packages_id_seq', COALESCE((SELECT MAX(id) FROM packages), 1));
+ALTER TABLE categories ALTER COLUMN id RESTART WITH 5;
+ALTER TABLE services ALTER COLUMN id RESTART WITH 4;
+ALTER TABLE testimonials ALTER COLUMN id RESTART WITH 3;
+ALTER TABLE contact_info ALTER COLUMN id RESTART WITH 2;
+ALTER TABLE packages ALTER COLUMN id RESTART WITH 4;

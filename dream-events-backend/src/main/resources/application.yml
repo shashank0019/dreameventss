@@ -5,6 +5,15 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  datasource:
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      idle-timeout: 300000        # 5 minutes
+      max-lifetime: 600000        # 10 minutes (keep connections fresh)
+      connection-timeout: 10000   # 10 seconds (fail fast instead of hanging)
+      keepalive-time: 30000       # 30 seconds (keep connections active to Supabase)
+      validation-timeout: 5000    # 5 seconds
   jpa:
     open-in-view: false
     defer-datasource-initialization: true

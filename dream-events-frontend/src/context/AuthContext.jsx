@@ -45,6 +45,16 @@ export const AuthProvider = ({ children }) => {
       const response = await authApi.login(username, password)
       const jwtToken = response.token
       localStorage.setItem('token', jwtToken)
+      
+      const decoded = parseJwt(jwtToken)
+      if (decoded) {
+        setUser({
+          username: decoded.sub,
+          role: decoded.role || 'ROLE_ADMIN'
+        })
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`
+      }
+
       setToken(jwtToken)
       return response
     } catch (error) {

@@ -4,6 +4,7 @@
 
 # Spring Boot
 **/target/
+*.jar
 *.class
 
 # IDE
